@@ -1,0 +1,15 @@
+.btn{
+    width: 350px;
+    background-color: #687EFF;
+    margin-top: 30px;
+}
+.input-login{
+    width: 350px;
+}
+.f-label-first{
+    margin-top: 30px;
+}
+a{
+    text-decoration: none;
+    color: #687EFF;
+}
