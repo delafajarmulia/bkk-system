@@ -5,6 +5,7 @@
 }
 .input-login{
     width: 350px;
+    background-color: #D9D9D9;
 }
 .f-label-first{
     margin-top: 30px;
@@ -12,4 +13,7 @@
 a{
     text-decoration: none;
     color: #687EFF;
+}
+.btn:hover{
+    background-color: #7CA1FF;
 }

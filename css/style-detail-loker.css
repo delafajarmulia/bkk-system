@@ -1,0 +1,25 @@
+.container{
+    margin-left: 50px;
+}
+.con-title{
+    display: flex;
+    flex-direction: row;
+}
+.title{
+    margin-left: 50px;
+}
+h1, h3{
+    font-weight: bold;
+}
+.deadline{
+    color: #B8B0B0;
+}
+.con-ketentuan{
+    display: flex;
+    flex-direction: row;
+}
+.ket{
+    display: flex;
+    flex-direction: row;
+    
+}

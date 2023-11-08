@@ -1,0 +1,14 @@
+/* h1{
+    padding-left: -10px;
+} */
+.btn-add{
+    width: 300px;
+    margin-left: 10px;
+    background-color: #687EFF;
+}
+.btn-add:hover{
+    background-color: #7CA1FF;
+}
+.btn-update{
+    background-color: #2085E2;
+}
