@@ -20,7 +20,7 @@
                     </div>
                     <div class="mb-3 ms-5 me-5">
                         <label for="" class="form-label">Password</label><br>
-                        <input type="text" class="form-control input-login" name="password">
+                        <input type="password" class="form-control input-login" name="password">
                     </div>
                     <div class="mb-3 ms-5">
                         <input type="submit" name="submit" class="btn" value="Login">
