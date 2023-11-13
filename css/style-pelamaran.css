@@ -1,0 +1,14 @@
+.info{
+    display: flex;
+    flex-direction: row;
+}
+img{
+    width: 120px;
+}
+.btn-kirim{
+    width: 1000px;
+    background-color: #687EFF;
+}
+.btn-kirim:hover{
+    background-color: #7CA1FF;
+}

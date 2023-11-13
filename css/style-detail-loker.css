@@ -23,3 +23,13 @@ h1, h3{
     flex-direction: row;
     
 }
+a{
+    text-decoration: none;
+}
+.btn-detail{
+    background-color: #687EFF;
+    width: 1000px;
+}
+.btn-detail:hover{
+    background-color: #7CA1FF;
+}

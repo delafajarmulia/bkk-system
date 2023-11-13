@@ -29,7 +29,7 @@
     </nav>
 
     <?php
-        $query = "SELECT p.nama AS nama_perusahaan, posisi, end_time, p.alamat AS alamat, p.kontrak_kerja AS kontrak_kerja,
+        $query = "SELECT l.id AS id, p.nama AS nama_perusahaan, posisi, end_time, p.alamat AS alamat, p.kontrak_kerja AS kontrak_kerja,
                     p.logo AS logo, min_age, max_age, pendidikan_terakhir, jurusan, pengalaman, gender
                     FROM lowongans AS l
                     LEFT JOIN perusahaans AS p 
@@ -42,7 +42,7 @@
     ?>
             <div class="container mt-5">
                 <div class="con-title">
-                    <img src="img/logo-dicoding-figma.png" alt="" style="width:150px">
+                    <img src="img/<?php echo $data['logo'];?>" alt="" style="width:150px">
                     <div class="title">
                         <h1><?php echo $data['nama_perusahaan'];?></h1>
                         <h3><?php echo $data['posisi'];?></h3>
@@ -80,6 +80,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="pelamaran.php?user_id=<?php echo $userId;?>&&lowongan_id=<?php echo $data['id'];?>" class="btn btn-detail mt-5">Daftar</a>
             </div>
     <?php
         }

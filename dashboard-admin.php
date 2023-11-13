@@ -29,7 +29,7 @@
         <h2 class="mt-3 ">Dashboard Admin</h2>
         <div class="d-flex justify-content-end">
             <a href="add-perusahaan.php?user_id=<?php echo $userId;?>" class="btn btn-add"><i class="bi bi-file-earmark-plus-fill"></i> Tambah Perusahaan</a>
-            <a href="" class="btn btn-add"><i class="bi bi-file-earmark-plus-fill"></i> Tambah Lowongan</a>
+            <a href="add-lowongan.php?user_id=<?php echo $userId;?>" class="btn btn-add"><i class="bi bi-file-earmark-plus-fill"></i> Tambah Lowongan</a>
         </div>
         <table class="table table-striped table-bordered mt-5">
             <tr>

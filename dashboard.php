@@ -29,7 +29,7 @@
     <div class="conatainer mt-5">
         <div class="row row-cols-2 g-3">
             <?php
-                $query = "SELECT l.id AS lowongan_id, p.id AS perusahaan_id, p.nama AS nama, posisi, p.alamat AS domisili, end_time 
+                $query = "SELECT l.id AS lowongan_id, p.id AS perusahaan_id, p.nama AS nama, posisi, p.alamat AS domisili, end_time, logo 
                         FROM lowongans AS l
                         LEFT JOIN perusahaans AS p
                         ON l.perusahaan_id=p.id;";
@@ -41,7 +41,7 @@
             ?>
                     <a href="detail-info-loker.php?user_id=<?php echo $userId;?>&&lowongan_id=<?php echo $lowonganId;?>&&perusahaan_id=<?php echo $perusahaanId;?>">
                         <div class="card me-3">
-                            <img src="img/logo-dicoding-figma.png" alt="">
+                            <img src="img/<?php echo $data['logo'];?>" alt="">
                             <h3><?php echo $data['nama'];?></h3>
                             <p class="p-atas">Posisi : <?php echo $data['posisi'];?></p>
                             <p>Domisili : <?php echo $data['domisili'];?></p>

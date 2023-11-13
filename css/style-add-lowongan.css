@@ -1,7 +1,7 @@
-.btn-submit{
-    width: 1440px;
+.btn-add{
+    min-width: fit-content;
     background-color: #687EFF;
 }
-.btn-submit:hover{
+.btn-add:hover{
     background-color: #7CA1FF;
 }
