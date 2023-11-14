@@ -20,17 +20,34 @@
         </div>
     </nav>
 
+    <?php
+        include 'connector.php';
+        $userId = $_GET['user_id'];
+        $resultNamaPerusahaan = mysqli_query($conn, "SELECT id, nama FROM perusahaans");
+    ?>
+
     <div class="container mt-5">
         <h3>Tambah Lowongan</h3>
         <form action="" method="post">
             <table class="table table-borderless mt-5">
                 <tr>
                     <td><label for="" class="form-label">Nama Perusahaan</label></td>
-                    <td><input type="text" name="nama" id="" class="form-control"></td>
+                    <td>
+                        <select name="perusahaan_id" id="perusahaan_id" required class="form-control">
+                            <option selected disabled>Pilih Perusahaan</option>
+                            <?php while($dataPerusahaan = mysqli_fetch_assoc($resultNamaPerusahaan)){?>
+                                <option value="<?php echo $dataPerusahaan['id'];?>"><?php echo $dataPerusahaan['nama']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="" class="form-label">Posisi</label></td>
                     <td><input type="text" name="posisi" id="" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td><label for="" class="form-label">Kuota</label></td>
+                    <td><input type="number" name="kuota" id="" class="form-control"></td>
                 </tr>
                 <tr>
                     <td><label for="" class="form-label">Waktu Mulai</label></td>
@@ -42,19 +59,40 @@
                 </tr>
                 <tr>
                     <td><label for="" class="form-label">Minimal Usia</label></td>
-                    <td><input type="text" name="min_age" id="" class="form-control"></td>
+                    <td><input type="number" name="min_age" id="" class="form-control"></td>
                 </tr>
                 <tr>
                     <td><label for="" class="form-label">Maksimal Usia</label></td>
-                    <td><input type="text" name="max_age" id="" class="form-control"></td>
+                    <td><input type="number" name="max_age" id="" class="form-control"></td>
                 </tr>
                 <tr>
                     <td><label for="" class="form-label">Pendidikan Terakhir</label></td>
                     <td><input type="text" name="pendidikan_terakhir" id="" class="form-control"></td>
                 </tr>
                 <tr>
+                    <td><label for="" class="form-label">Jurusan</label></td>
+                    <td><input type="text" name="jurusan" id="" class="form-control"></td>
+                </tr>
+                <tr>
                     <td><label for="" class="form-label">Sistem Pelamaran</label></td>
-                    <td><input type="text" name="sistem_pelamaran" id="" class="form-control"></td>
+                    <td>
+                        <select name="sistem_pelamaran" id="sistem_pelamaran" class="form-control">
+                            <option selected disabled>Pilih Sistem Pelamaran</option>
+                            <option value="online">Online</option>
+                            <option value="offline">Offline</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="" class="form-label">Gender</label></td>
+                    <td>
+                        <select name="gender" id="gender" class="form-control">
+                            <option selected disabled>Pilih Gender</option>
+                            <option value="Laki-Laki">Laki-Laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                            <option value="Semua Gender">Semua Gender</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="" class="form-label">pengalaman</label></td>
@@ -75,16 +113,30 @@
         include 'connector.php';
 
         if(isset($_POST['submit'])){
-            $namaPerusahaan = $_POST['nama'];
+            $idPerusahaan = $_POST['perusahaan_id'];
             $posisi = $_POST['posisi'];
+            $kuota = $_POST['kuota'];
             $startTime = $_POST['start_time'];
             $endTime = $_POST['end_time'];
             $minAge = $_POST['min_age'];
             $maxAge = $_POST['max_age'];
             $pendidikanTerakhir = $_POST['pendidikan_terakhir'];
+            $jurusan = $_POST['jurusan'];
             $sistemPelamaran = $_POST['sistem_pelamaran'];
+            $gender = $_POST['gender'];
             $pengalaman = $_POST['pengalaman'];
             $notes = $_POST['notes'];
+
+            $queryAddLowongan = "INSERT INTO lowongans(perusahaan_id, posisi, kuota, start_time, end_time, notes, min_age, max_age, sistem_pelamaran, pengalaman, pendidikan_terakhir, jurusan, gender)
+                                VALUES($idPerusahaan, '$posisi', $kuota, '$startTime', '$endTime', '$notes', $minAge, $maxAge, '$sistemPelamaran', '$pengalaman', '$pendidikanTerakhir', '$jurusan', '$gender')";
+
+            $resultAddLowongan = mysqli_query($conn, $queryAddLowongan);
+
+            if(!$resultAddLowongan){
+                die('gagal menambahkan lowongan');
+            }else{
+                header("location:dashboard-admin.php?user_id=$userId");
+            }
         }
     ?>
 </body>

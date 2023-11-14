@@ -60,8 +60,8 @@
                         <td><?php echo $data['kuota'];?></td>
                         <td><?php echo $data['end_time'];?></td>
                         <td>
-                            <a href="hapus.php?lowongan_id=<?php echo $data['id'];?>" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
-                            <a href="edit-lowongan.php?lowongan_id=<?php echo $data['id'];?>" class="btn btn-update"><i class="bi bi-pen-fill"></i></a>
+                            <a href="hapus-lowongan.php?lowongan_id=<?php echo $data['id'];?>&&user_id=<?php echo $userId;?>" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                            <a href="edit-lowongan.php?lowongan_id=<?php echo $data['id'];?>&&user_id=<?php echo $userId;?>" class="btn btn-update"><i class="bi bi-pen-fill"></i></a>
                         </td>
                     </tr>
             <?php

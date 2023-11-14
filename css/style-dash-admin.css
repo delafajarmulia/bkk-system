@@ -12,3 +12,6 @@
 .btn-update{
     background-color: #2085E2;
 }
+.btn-update:hover{
+    background-color: #2b94f7;
+}
