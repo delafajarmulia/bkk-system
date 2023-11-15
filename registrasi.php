@@ -27,16 +27,18 @@
             $pendidikanTerakhir = $_POST['pendidikan_terakhir'];
             $img = $_FILES['img']['name'];
 
-            function cekUniqueEmail($email){
+            function cekUniqueEmailAndNIK($email, $nik){
                 include 'connector.php';
-                $resultCekEmail = mysqli_query($conn, "SELECT id FROM users WHERE email='$email'");
-                return $resultCekEmail;
+                $resultCekEmail = mysqli_query($conn, "SELECT id FROM users WHERE email='$email' OR nik='$nik'");
+                $availabled = mysqli_fetch_assoc($resultCekEmail);
+                return $availabled;
             }
 
-            $emailAvailabled = cekUniqueEmail($email);
+            $emailAvailabled = cekUniqueEmailAndNIK($email, $nik);
+            var_dump($emailAvailabled);
 
-            if(isset($email)){
-                echo 'email sudah ada';
+            if(isset($emailAvailabled)){
+                echo 'anda sudah terdaftar';
             } else {
                 $ekstensiDiPerbolehkan = array('jpg', 'png', 'jpeg');
                 $explodeFile = explode('.', $img);
@@ -51,7 +53,17 @@
 
                     $pw = password_hash($pw, PASSWORD_DEFAULT);
 
-                    
+                    $queryRegistrasi = "INSERT INTO users(nik, nama, alamat, no_hp, jenis_kelamin, agama, tempat_lahir, 
+                                        tanggal_lahir, email, pendidikan_terakhir, password, foto, status_pernikahan, role) 
+                                        VALUES('$nik', '$nama', '$alamat', '$noHP', '$jk', '$agama', '$tempatLahir', 
+                                        '$tanggalLahir','$email','$pendidikanTerakhir', '$pw', '$newNameImage', '$statusPernikahan', 'pelamar')";
+                    $resultRegistrasi = mysqli_query($conn, $queryRegistrasi);
+
+                    if(!$resultRegistrasi){
+                        die('gagal melakukan registrasi');
+                    } else {
+                        header("location:login.php");
+                    }
                 }
             }
         }

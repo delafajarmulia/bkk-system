@@ -63,6 +63,8 @@
                         $lowonganId = $_GET['lowongan_id'];
                         header("location:pelamaran.php?user_id=$userId&&lowongan_id=$lowonganId");
                     break;
+                    default:
+                        break;
                 }
                     
             }
@@ -74,6 +76,7 @@
         <form action="" method="post" enctype="multipart/form-data">
             <?php
                 while($data = mysqli_fetch_assoc($resultGetUserById)){
+                    echo password_hash($data['password'], PASSWORD_DEFAULT);
             ?>
                 <table class="table table-borderless mt-5">
                     <tr>
@@ -88,7 +91,7 @@
                         <td><label for="" class="form-label">Tempat, Tanggal Lahir</label></td>
                         <td>
                             <input type="text" name="tempat_lahir" id="" class="form-control w-5" value="<?php echo $data['tempat_lahir'];?>">
-                            <input type="date" name="tanggal_lahir" id="" class="form-control">
+                            <input type="date" name="tanggal_lahir" id="" class="form-control" value="<?php echo date('Y-m-d', strtotime($data['tanggal_lahir']));?>">
                         </td>
                     </tr>
                     <tr>
