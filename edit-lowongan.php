@@ -58,7 +58,7 @@
         <div class="d-flex justify-content-end">
             <ul class="navbar-nav">
                 <li class="nav-item position-absolute top-0 end-0 me-5 mt-2">
-                    <a href="edit-profil.php?user_id=<?php echo $userId;?>&&from=edit-lowongan" class="nav-link">Edit Profil</a>
+                    <a href="edit-profil.php?user_id=<?php echo $userId;?>&&from=edit-lowongan&&lowongan_id=<?php echo $lowonganId;?>&&perusahaan_id=<?php echo $perusahaanId;?>" class="nav-link">Edit Profil</a>
                 </li>
             </ul>
         </div>

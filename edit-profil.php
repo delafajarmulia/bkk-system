@@ -14,6 +14,59 @@
 
         $queryGetUserById = "SELECT * FROM users WHERE id=$userId";
         $resultGetUserById = mysqli_query($conn, $queryGetUserById);
+
+        $from = $_GET['from'];
+
+        if(isset($_POST['submit'])){
+            $nama = $_POST['nama'];
+            $nik = $_POST['nik'];
+            $tempatLahir = $_POST['tempat_lahir'];
+            $tanggalLahir = $_POST['tanggal_lahir'];
+            $alamat = $_POST['alamat'];
+            $noHp = $_POST['no_hp'];
+            $email = $_POST['email'];
+            $pw = $_POST['pw'];
+            $jk = $_POST['jk'];
+            $agama = $_POST['agama'];
+            $pendidikanTerakhir = $_POST['pendidikan_terakhir'];
+            $img = $_FILES['img']['name'];
+
+            $result = 'hello';
+
+            if(!$result){
+                die('error');
+            }else{
+                switch($from){
+                    case 'add-lowongan':
+                        header("location:add-lowongan.php?user_id=$userId");
+                    break;
+                    case 'add-perusahaan':
+                        header("location:add-perusahaan.php?user_id=$userId");
+                    break;
+                    case 'edit-lowongan':
+                        $lowonganId = $_GET['lowongan_id'];
+                        $perusahaanId = $_GET['perusahaan_id'];
+                        header("location:edit-lowongan.php?user_id=$userId&&lowongan_id=$lowonganId&&perusahaan_id=$perusahaanId");
+                    break;
+                    case 'dashboard-admin':
+                        header("location:dashboard-admin.php?user_id=$userId");
+                    break;
+                    case 'dashboard':
+                        header("location:dashboard.php?user_id=$userId");
+                    break;
+                    case 'detail-info-loker':
+                        $lowonganId = $_GET['lowongan_id'];
+                        $perusahaanId = $_GET['perusahaan_id'];
+                        header("location:detail-info-loker.php?user_id=$userId&&lowongan_id=$lowonganId&&perusahaan_id=$perusahaanId");
+                    break;
+                    case 'pelamaran':
+                        $lowonganId = $_GET['lowongan_id'];
+                        header("location:pelamaran.php?user_id=$userId&&lowongan_id=$lowonganId");
+                    break;
+                }
+                    
+            }
+        }
     ?>
 
     <div class="container">
@@ -25,7 +78,7 @@
                 <table class="table table-borderless mt-5">
                     <tr>
                         <td><label for="" class="form-label">Nama</label></td>
-                        <td><input type="text" name="name" id="" class="form-control" value="<?php echo $data['nama'];?>"></td>
+                        <td><input type="text" name="nama" id="" class="form-control" value="<?php echo $data['nama'];?>"></td>
                     </tr>
                     <tr>
                         <td><label for="" class="form-label">NIK</label></td>
@@ -56,15 +109,15 @@
                     </tr>
                     <tr>
                         <td><label for="" class="form-label">Jenis Kelamin</label></td>
-                        <td><input type="text" name="name" id="" class="form-control" value="<?php echo $data['jenis_kelamin'];?>"></td>
+                        <td><input type="text" name="jk" id="" class="form-control" value="<?php echo $data['jenis_kelamin'];?>"></td>
                     </tr>
                     <tr>
                         <td><label for="" class="form-label">Agama</label></td>
-                        <td><input type="text" name="name" id="" class="form-control" value="<?php echo $data['agama'];?>"></td>
+                        <td><input type="text" name="agama" id="" class="form-control" value="<?php echo $data['agama'];?>"></td>
                     </tr>
                     <tr>
                         <td><label for="" class="form-label">Pendidikan Terakhir</label></td>
-                        <td><input type="text" name="name" id="" class="form-control" value="<?php echo $data['pendidikan_terakhir'];?>"></td>
+                        <td><input type="text" name="pendidikan_terakhir" id="" class="form-control" value="<?php echo $data['pendidikan_terakhir'];?>"></td>
                     </tr>
                     <tr>
                         <td><label for="" class="form-label">Foto</label></td>
