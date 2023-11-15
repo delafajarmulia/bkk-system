@@ -9,6 +9,39 @@
     <link rel="stylesheet" href="css/style-add-lowongan.css">
 </head>
 <body>
+    <?php
+        include 'connector.php';
+        $userId = $_GET['user_id'];
+        $resultNamaPerusahaan = mysqli_query($conn, "SELECT id, nama FROM perusahaans");
+
+        if(isset($_POST['submit'])){
+            $idPerusahaan = $_POST['perusahaan_id'];
+            $posisi = $_POST['posisi'];
+            $kuota = $_POST['kuota'];
+            $startTime = $_POST['start_time'];
+            $endTime = $_POST['end_time'];
+            $minAge = $_POST['min_age'];
+            $maxAge = $_POST['max_age'];
+            $pendidikanTerakhir = $_POST['pendidikan_terakhir'];
+            $jurusan = $_POST['jurusan'];
+            $sistemPelamaran = $_POST['sistem_pelamaran'];
+            $gender = $_POST['gender'];
+            $pengalaman = $_POST['pengalaman'];
+            $notes = $_POST['notes'];
+
+            $queryAddLowongan = "INSERT INTO lowongans(perusahaan_id, posisi, kuota, start_time, end_time, notes, min_age, max_age, sistem_pelamaran, pengalaman, pendidikan_terakhir, jurusan, gender)
+                                VALUES($idPerusahaan, '$posisi', $kuota, '$startTime', '$endTime', '$notes', $minAge, $maxAge, '$sistemPelamaran', '$pengalaman', '$pendidikanTerakhir', '$jurusan', '$gender')";
+
+            $resultAddLowongan = mysqli_query($conn, $queryAddLowongan);
+
+            if(!$resultAddLowongan){
+                die('gagal menambahkan lowongan');
+            }else{
+                header("location:dashboard-admin.php?user_id=$userId");
+            }
+        }
+    ?>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
         <a href="dashboard-admin.php?user_id=<?php echo $userId;?>" class="navbar-brand ms-5">Info Loker</a>
         <div class="d-flex justify-content-end">
@@ -19,12 +52,6 @@
             </ul>
         </div>
     </nav>
-
-    <?php
-        include 'connector.php';
-        $userId = $_GET['user_id'];
-        $resultNamaPerusahaan = mysqli_query($conn, "SELECT id, nama FROM perusahaans");
-    ?>
 
     <div class="container mt-5">
         <h3>Tambah Lowongan</h3>
@@ -109,35 +136,6 @@
         </form>
     </div>
 
-    <?php
-        include 'connector.php';
-
-        if(isset($_POST['submit'])){
-            $idPerusahaan = $_POST['perusahaan_id'];
-            $posisi = $_POST['posisi'];
-            $kuota = $_POST['kuota'];
-            $startTime = $_POST['start_time'];
-            $endTime = $_POST['end_time'];
-            $minAge = $_POST['min_age'];
-            $maxAge = $_POST['max_age'];
-            $pendidikanTerakhir = $_POST['pendidikan_terakhir'];
-            $jurusan = $_POST['jurusan'];
-            $sistemPelamaran = $_POST['sistem_pelamaran'];
-            $gender = $_POST['gender'];
-            $pengalaman = $_POST['pengalaman'];
-            $notes = $_POST['notes'];
-
-            $queryAddLowongan = "INSERT INTO lowongans(perusahaan_id, posisi, kuota, start_time, end_time, notes, min_age, max_age, sistem_pelamaran, pengalaman, pendidikan_terakhir, jurusan, gender)
-                                VALUES($idPerusahaan, '$posisi', $kuota, '$startTime', '$endTime', '$notes', $minAge, $maxAge, '$sistemPelamaran', '$pengalaman', '$pendidikanTerakhir', '$jurusan', '$gender')";
-
-            $resultAddLowongan = mysqli_query($conn, $queryAddLowongan);
-
-            if(!$resultAddLowongan){
-                die('gagal menambahkan lowongan');
-            }else{
-                header("location:dashboard-admin.php?user_id=$userId");
-            }
-        }
-    ?>
+    
 </body>
 </html>

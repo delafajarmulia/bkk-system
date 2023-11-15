@@ -13,6 +13,32 @@
         include 'connector.php';
         $userId = $_GET['user_id'];
         $lowonganId = $_GET['lowongan_id'];
+
+        if(isset($_POST['submit'])){
+            $noSKCK = $_POST['no_skck'];
+            $noIjazah = $_POST['no_ijazah'];
+            $alamat = $_POST['alamat'];
+            //var_dump($userId. $lowonganId);
+
+            if($noSKCK === null || $noIjazah === null){
+                echo 'isi data dengan lengkap';
+            }else{
+                $queryLamarPekerjaan = "INSERT INTO detail_lamarans(lowongan_id, user_id, waktu_melamar, alamat, no_skck, no_ijazah) 
+                                        VALUES($lowonganId, $userId, CURRENT_DATE(), '$alamat', '$noSKCK','$noIjazah');";
+                $resultLamarPekerjaan = mysqli_query($conn, $queryLamarPekerjaan);
+                
+                if(!$resultLamarPekerjaan){
+                    echo 'gagal';
+                } else{
+                    header("location:success.php");
+                }
+            }
+
+            // function lamar($skck, $ijazah, $alamat){
+                
+            //      return true;
+            // }
+        }
     ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
         <a href="dashboard.php?user_id=<?php echo $userId;?>" class="navbar-brand ms-5">Info Loker</a>
@@ -106,33 +132,5 @@
             </form>
         <?php } ?>
     </div>
-
-    <?php
-        if(isset($_POST['submit'])){
-            $noSKCK = $_POST['no_skck'];
-            $noIjazah = $_POST['no_ijazah'];
-            $alamat = $_POST['alamat'];
-            //var_dump($userId. $lowonganId);
-
-            if($noSKCK === null || $noIjazah === null){
-                echo 'isi data dengan lengkap';
-            }else{
-                $queryLamarPekerjaan = "INSERT INTO detail_lamarans(lowongan_id, user_id, waktu_melamar, alamat, no_skck, no_ijazah) 
-                                        VALUES($lowonganId, $userId, CURRENT_DATE(), '$alamat', '$noSKCK','$noIjazah');";
-                $resultLamarPekerjaan = mysqli_query($conn, $queryLamarPekerjaan);
-                
-                if(!$resultLamarPekerjaan){
-                    echo 'gagal';
-                } else{
-                    header("location:success.php");
-                }
-            }
-
-            // function lamar($skck, $ijazah, $alamat){
-                
-            //      return true;
-            // }
-        }
-    ?>
 </body>
 </html>
