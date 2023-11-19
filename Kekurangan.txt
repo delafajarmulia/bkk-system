@@ -1,0 +1,4 @@
+Kekurangan:
+kurang set new pw, dan nampilin pw yg dihash ke bentuk yg bisa dibaca manusia -> update profil
+nampilin select option yg dari db, ex: jk -> update profil
+header buat balik ke halaman di mana user klik update profil

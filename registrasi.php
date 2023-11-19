@@ -62,7 +62,14 @@
                     if(!$resultRegistrasi){
                         die('gagal melakukan registrasi');
                     } else {
-                        header("location:login.php");
+                        $resultToLogin = mysqli_query($conn, "SELECT id, role, email FROM users WHERE email='$email'");
+                        while($data = mysqli_fetch_assoc($resultToLogin)){
+                            $user_id = $data['id'];
+                            $_SESSION['login'] = true;
+                            $_SESSION['user_id'] = $data['id'];
+                            $_SESSION['role'] = $data['role'];
+                            header("location:dashboard.php?user_id=$user_id");
+                        }
                     }
                 }
             }

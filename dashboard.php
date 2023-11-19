@@ -32,7 +32,8 @@
                 $query = "SELECT l.id AS lowongan_id, p.id AS perusahaan_id, p.nama AS nama, posisi, p.alamat AS domisili, end_time, logo 
                         FROM lowongans AS l
                         LEFT JOIN perusahaans AS p
-                        ON l.perusahaan_id=p.id;";
+                        ON l.perusahaan_id=p.id
+                        WHERE end_time>CURRENT_DATE()";
                 $result = mysqli_query($conn, $query);
 
                 while($data = mysqli_fetch_assoc($result)){

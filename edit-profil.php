@@ -10,65 +10,34 @@
 <body>
     <?php
         include 'connector.php';
+        include 'back.php';
         $userId = $_GET['user_id'];
+        $from = $_GET['from'];
 
         $queryGetUserById = "SELECT * FROM users WHERE id=$userId";
         $resultGetUserById = mysqli_query($conn, $queryGetUserById);
+        // while($dataUser = mysqli_fetch_assoc($resultGetUserById)){
+        //     $img_old = $dataUser['foto'];
+        // }
 
-        $from = $_GET['from'];
+        
+        
 
-        if(isset($_POST['submit'])){
-            $nama = $_POST['nama'];
-            $nik = $_POST['nik'];
-            $tempatLahir = $_POST['tempat_lahir'];
-            $tanggalLahir = $_POST['tanggal_lahir'];
-            $alamat = $_POST['alamat'];
-            $noHp = $_POST['no_hp'];
-            $email = $_POST['email'];
-            $pw = $_POST['pw'];
-            $jk = $_POST['jk'];
-            $agama = $_POST['agama'];
-            $pendidikanTerakhir = $_POST['pendidikan_terakhir'];
-            $img = $_FILES['img']['name'];
+        //if(isset($_POST['submit'])){
+            // $img_old2 = $img_old;
+            // var_dump($img_old2);
+            
+            // checkedSubmit();
+            // var_dump($nik);
+            // $result = '';
 
-            $result = 'hello';
-
-            if(!$result){
-                die('error');
-            }else{
-                switch($from){
-                    case 'add-lowongan':
-                        header("location:add-lowongan.php?user_id=$userId");
-                    break;
-                    case 'add-perusahaan':
-                        header("location:add-perusahaan.php?user_id=$userId");
-                    break;
-                    case 'edit-lowongan':
-                        $lowonganId = $_GET['lowongan_id'];
-                        $perusahaanId = $_GET['perusahaan_id'];
-                        header("location:edit-lowongan.php?user_id=$userId&&lowongan_id=$lowonganId&&perusahaan_id=$perusahaanId");
-                    break;
-                    case 'dashboard-admin':
-                        header("location:dashboard-admin.php?user_id=$userId");
-                    break;
-                    case 'dashboard':
-                        header("location:dashboard.php?user_id=$userId");
-                    break;
-                    case 'detail-info-loker':
-                        $lowonganId = $_GET['lowongan_id'];
-                        $perusahaanId = $_GET['perusahaan_id'];
-                        header("location:detail-info-loker.php?user_id=$userId&&lowongan_id=$lowonganId&&perusahaan_id=$perusahaanId");
-                    break;
-                    case 'pelamaran':
-                        $lowonganId = $_GET['lowongan_id'];
-                        header("location:pelamaran.php?user_id=$userId&&lowongan_id=$lowonganId");
-                    break;
-                    default:
-                        break;
-                }
+            // if(!$result){
+            //     die('error');
+            // }else{
+                
                     
-            }
-        }
+            // }
+        //}
     ?>
 
     <div class="container">
@@ -77,6 +46,7 @@
             <?php
                 while($data = mysqli_fetch_assoc($resultGetUserById)){
                     echo password_hash($data['password'], PASSWORD_DEFAULT);
+                    $img_old = $data['foto'];
             ?>
                 <table class="table table-borderless mt-5">
                     <tr>
@@ -115,6 +85,10 @@
                         <td><input type="text" name="jk" id="" class="form-control" value="<?php echo $data['jenis_kelamin'];?>"></td>
                     </tr>
                     <tr>
+                        <td><label for="" class="form-label">Status Pernikahan</label></td>
+                        <td><input type="text" name="status_pernikahan" id="" class="form-control" value="<?php echo $data['status_pernikahan'];?>"></td>
+                    </tr>
+                    <tr>
                         <td><label for="" class="form-label">Agama</label></td>
                         <td><input type="text" name="agama" id="" class="form-control" value="<?php echo $data['agama'];?>"></td>
                     </tr>
@@ -124,7 +98,7 @@
                     </tr>
                     <tr>
                         <td><label for="" class="form-label">Foto</label></td>
-                        <td><input type="file" name="img" id="" class="form-control" value="<?php echo $data['foto'];?>"></td>
+                        <td><input type="file" name="img" id="img" class="form-control" value="<?php echo $data['foto'];?>"></td>
                     </tr>
                     <tr>
                         <td colspan="2"><input type="submit" value="Daftar" name="submit" class="btn btn-submit rounded mt-5"></td>
@@ -133,5 +107,63 @@
             <?php } ?>
         </form>
     </div>
+
+    <?php
+        // function checkedSubmit(){
+            
+        // }
+
+        if(isset($_POST['submit'])){
+            $nama = $_POST['nama'];
+            $nik = $_POST['nik'];
+            $tempatLahir = $_POST['tempat_lahir'];
+            $tanggalLahir = $_POST['tanggal_lahir'];
+            $alamat = $_POST['alamat'];
+            $noHp = $_POST['no_hp'];
+            $email = $_POST['email'];
+            $pw = $_POST['pw'];
+            $jk = $_POST['jk'];
+            $statusPernikahan = $_POST['status_pernikahan'];
+            $agama = $_POST['agama'];
+            $pendidikanTerakhir = $_POST['pendidikan_terakhir'];
+            $img = $_FILES['img']['name'];
+
+            if($img !== ''){
+                $eksetensiDiperbolehkan = array('jpg', 'png', 'jpeg');
+                $explodeFile = explode('.', $img);
+                $ekstensiFile = strtolower(end($explodeFile));
+                $file_tmp = $_FILES['img']['tmp_name'];
+                $rand_num = rand(1, 999);
+                $newImgName = $rand_num .'-'.$img;
+
+                if(in_array($ekstensiFile, $eksetensiDiperbolehkan) === true){
+                    move_uploaded_file($file_tmp, 'img/'.$newImgName);
+
+                    $queryUpdateWithImg = "UPDATE users SET nik='$nik', nama='$nama', alamat='$alamat', no_hp='$noHp', jenis_kelamin='$jk',agama='$agama',
+                                          tempat_lahir='$tempatLahir', tanggal_lahir='$tanggalLahir', email='$email', pendidikan_terakhir='$pendidikanTerakhir', 
+                                          foto='$newImgName', status_pernikahan='$statusPernikahan' WHERE id=$userId";
+                    $resultUpdate = mysqli_query($conn, $queryUpdateWithImg);
+
+                    if(!$resultUpdate){
+                        die('gagal update');
+                    }else{
+                        backTo($userId, $from);
+                    }
+                }
+            }else{
+                $queryUpdateWithoutImg = "UPDATE users SET nik='$nik', nama='$nama', alamat='$alamat', no_hp='$noHp', jenis_kelamin='$jk',agama='$agama',
+                                          tempat_lahir='$tempatLahir', tanggal_lahir='$tanggalLahir', email='$email', pendidikan_terakhir='$pendidikanTerakhir', 
+                                          foto='$img_old', status_pernikahan='$statusPernikahan' WHERE id=$userId";
+                $resultUpdate = mysqli_query($conn, $queryUpdateWithoutImg);
+
+                if(!$resultUpdate){
+                    die('gagal update');
+                }else{
+                    backTo($userId, $from);
+                }
+            }
+        }
+        
+    ?>
 </body>
 </html>
