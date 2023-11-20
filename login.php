@@ -9,6 +9,37 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+    <?php
+        session_start();
+        include 'connector.php';
+
+        if(isset($_POST['submit'])){
+            $email = $_POST['email'];
+            $pw = $_POST['password'];
+
+            if($email === '' || $pw === ''){
+                echo 'anda sudah ada';
+            }else{
+                $query = mysqli_query($conn, "SELECT id, email, password, role FROM users WHERE email='$email'");
+                $result = mysqli_fetch_assoc($query);
+                $user_id = $result['id'];
+                if($result !== null){
+                    if(password_verify($pw, $result['password'])){
+                        $_SESSION['login'] = true;
+                        $_SESSION['user_id'] = $result['id'];
+                        $_SESSION['role'] = $result['role'];
+                        if($result['role'] === 'admin'){
+                            header("location:dashboard-admin.php?user_id=$user_id");
+                        }else{
+                            header("location:dashboard.php?user_id=$user_id");
+                        }
+                    }
+                }
+            }
+        }
+    ?>
+
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="card col-md-5 border-0">
@@ -32,30 +63,6 @@
         </div>
     </div>
 
-    <?php
-        session_start();
-        include 'connector.php';
-
-        if(isset($_POST['submit'])){
-            $email = $_POST['email'];
-            $pw = $_POST['password'];
-
-            $query = mysqli_query($conn, "SELECT id, email, password, role FROM users WHERE email='$email'");
-            $result = mysqli_fetch_assoc($query);
-            $user_id = $result['id'];
-            if($result !== null){
-                if(password_verify($pw, $result['password'])){
-                    $_SESSION['login'] = true;
-                    $_SESSION['user_id'] = $result['id'];
-                    $_SESSION['role'] = $result['role'];
-                    if($result['role'] === 'admin'){
-                        header("location:dashboard-admin.php?user_id=$user_id");
-                    }else{
-                        header("location:dashboard.php?user_id=$user_id");
-                    }
-                }
-            }
-        }
-    ?>
+    
 </body>
 </html>

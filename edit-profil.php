@@ -84,11 +84,23 @@
                     </tr>
                     <tr>
                         <td><label for="" class="form-label">Jenis Kelamin</label></td>
-                        <td><input type="text" name="jk" id="" class="form-control" value="<?php echo $data['jenis_kelamin'];?>"></td>
+                        <td>
+                            <select name="jk" id="" class="form-control">
+                                <option value="<?php echo $data['jenis_kelamin'];?>" selected><?php echo $data['jenis_kelamin'];?></option>
+                                <option value="laki-laki">laki-laki</option>
+                                <option value="perempuan">perempuan</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="" class="form-label">Status Pernikahan</label></td>
-                        <td><input type="text" name="status_pernikahan" id="" class="form-control" value="<?php echo $data['status_pernikahan'];?>"></td>
+                        <td>
+                            <select name="status_pernikahan" id="" class="form-control">
+                                <option value="<?php echo $data['status_pernikahan'];?>" selected><?php echo $data['status_pernikahan'];?></option>
+                                <option value="belum mmenikah">belum menikah</option>
+                                <option value="sudah mmenikah">sudah menikah</option>
+                            </select>    
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="" class="form-label">Agama</label></td>
